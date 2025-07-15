@@ -108,39 +108,30 @@
         <h1 class="title">YouTube→NotebookLM</h1>
         <p class="subtitle">お好みの方法を選択してください</p>
         
-        <a href="simple-approach.html" class="method-card recommended">
+        <a href="ultra-reliable.html" class="method-card recommended">
             <div class="method-icon">⚡</div>
-            <div class="method-title">シンプル方式</div>
+            <div class="method-title">Ultra-Simple 確実版</div>
             <div class="method-description">
-                最も簡単！3ステップで完了<br>
-                初心者におすすめ
+                最も簡単・確実！アプリ優先起動<br>
+                技術制約完全回避
             </div>
         </a>
         
         <a href="bookmarklet-setup.html" class="method-card">
             <div class="method-icon">🔗</div>
-            <div class="method-title">ブックマークレット方式</div>
+            <div class="method-title">Ultimate ブックマークレット</div>
             <div class="method-description">
                 YouTubeページで直接実行<br>
-                1回設定すれば永続利用
+                1回設定で永続利用・共有不要
             </div>
         </a>
         
-        <a href="qr-approach.html" class="method-card">
-            <div class="method-icon">📱</div>
-            <div class="method-title">QRコード方式</div>
+        <a href="simple-approach.html" class="method-card">
+            <div class="method-icon">📝</div>
+            <div class="method-title">シンプル方式</div>
             <div class="method-description">
-                端末間でURL共有に便利<br>
-                技術制約なし
-            </div>
-        </a>
-        
-        <a href="improved-pwa.html" class="method-card">
-            <div class="method-icon">📱</div>
-            <div class="method-title">PWA版（アプリ内完結）</div>
-            <div class="method-description">
-                アプリのように動作<br>
-                確実な動作保証
+                3ステップの基本版<br>
+                手動でも確実
             </div>
         </a>
         
@@ -155,8 +146,8 @@
         const sharedUrl = urlParams.get('url') || urlParams.get('text');
         
         if (sharedUrl && (sharedUrl.includes('youtube.com') || sharedUrl.includes('youtu.be'))) {
-            // 共有から来た場合はシンプル方式に自動転送
-            window.location.href = `simple-approach.html?${urlParams.toString()}`;
+            // 共有から来た場合はUltra-Simple確実版に自動転送
+            window.location.href = `ultra-reliable.html?${urlParams.toString()}`;
         }
     </script>
 </body>

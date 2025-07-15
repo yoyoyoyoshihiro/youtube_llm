@@ -24,99 +24,85 @@
         .container {
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 40px;
             width: 100%;
-            max-width: 450px;
+            max-width: 420px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
         
         .logo {
-            font-size: 48px;
-            margin-bottom: 15px;
+            font-size: 56px;
+            margin-bottom: 20px;
         }
         
         .title {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #333;
         }
         
         .subtitle {
-            font-size: 14px;
+            font-size: 16px;
             color: #666;
-            margin-bottom: 25px;
-        }
-        
-        .method-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 5px;
-        }
-        
-        .method-tab {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .method-tab.active {
-            background: #667eea;
-            color: white;
-        }
-        
-        .method-content {
-            display: none;
-            margin-bottom: 20px;
-        }
-        
-        .method-content.active {
-            display: block;
+            margin-bottom: 30px;
         }
         
         .url-input {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             border: 2px solid #e9ecef;
-            border-radius: 12px;
+            border-radius: 15px;
             font-size: 16px;
-            margin-bottom: 15px;
-            transition: border-color 0.3s ease;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            resize: none;
+            font-family: inherit;
         }
         
         .url-input:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .url-input.success {
+            border-color: #28a745;
+            background-color: #f0fff4;
+        }
+        
+        .url-input.error {
+            border-color: #dc3545;
+            background-color: #fff5f5;
         }
         
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 18px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
+            border-radius: 15px;
+            font-size: 18px;
             font-weight: 600;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
+            font-family: inherit;
         }
         
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
         
         .btn-primary {
@@ -124,27 +110,18 @@
             color: white;
         }
         
-        .btn-success {
+        .btn-secondary {
             background: #28a745;
             color: white;
         }
         
-        .btn-info {
-            background: #17a2b8;
-            color: white;
-        }
-        
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-        
         .status {
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 14px;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
             display: none;
+            font-size: 15px;
+            font-weight: 500;
         }
         
         .status.success {
@@ -159,107 +136,81 @@
             border: 1px solid #f5c6cb;
         }
         
-        .status.info {
+        .status.processing {
             background: #d1ecf1;
             color: #0c5460;
             border: 1px solid #bee5eb;
         }
         
-        .instructions {
+        .how-it-works {
             background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
             text-align: left;
-            font-size: 14px;
         }
         
-        .instructions h4 {
-            margin-bottom: 10px;
+        .how-title {
+            font-size: 18px;
+            font-weight: bold;
             color: #333;
+            margin-bottom: 15px;
+            text-align: center;
         }
         
         .step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
+            font-size: 15px;
         }
         
         .step-number {
             background: #667eea;
             color: white;
-            width: 20px;
-            height: 20px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
+            font-size: 14px;
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 12px;
             flex-shrink: 0;
-            margin-top: 2px;
         }
         
-        .qr-container {
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            display: none;
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
         }
         
-        .qr-code {
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 15px;
-            background: white;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #666;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .countdown {
-            font-size: 18px;
-            font-weight: bold;
+        .alternative-link {
+            display: inline-block;
+            margin-top: 20px;
             color: #667eea;
-            margin: 10px 0;
-        }
-        
-        .fallback-links {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        
-        .fallback-link {
-            flex: 1;
-            padding: 10px;
-            background: #e9ecef;
-            border-radius: 8px;
             text-decoration: none;
-            color: #495057;
-            font-size: 12px;
-            text-align: center;
-            transition: background 0.3s ease;
-        }
-        
-        .fallback-link:hover {
-            background: #dee2e6;
-        }
-        
-        .browser-tabs {
-            margin: 15px 0;
-            font-size: 13px;
-            color: #666;
-            background: #fff3cd;
-            padding: 10px;
+            font-size: 14px;
+            padding: 8px 16px;
+            border: 1px solid #667eea;
             border-radius: 8px;
-            border: 1px solid #ffeaa7;
+            transition: all 0.3s ease;
+        }
+        
+        .alternative-link:hover {
+            background: #667eea;
+            color: white;
         }
     </style>
 </head>
@@ -267,153 +218,60 @@
     <div class="container">
         <div class="logo">🔗📚</div>
         <h1 class="title">YouTube→NotebookLM</h1>
-        <p class="subtitle">確実版 - 技術制約完全回避</p>
-        
-        <!-- 方法選択タブ -->
-        <div class="method-selector">
-            <button class="method-tab active" onclick="switchMethod('instant')">瞬間実行</button>
-            <button class="method-tab" onclick="switchMethod('manual')">手動確実</button>
-            <button class="method-tab" onclick="switchMethod('qr')">QR共有</button>
-        </div>
+        <p class="subtitle">Ultra-Simple 確実版</p>
         
         <div class="status" id="status"></div>
         
-        <!-- 方法1: 瞬間実行 -->
-        <div class="method-content active" id="method-instant">
-            <input type="url" class="url-input" id="url-instant" placeholder="YouTube URLをペースト">
+        <textarea 
+            id="urlInput" 
+            class="url-input"
+            placeholder="YouTube URLを入力またはペースト&#10;例: https://youtube.com/watch?v=..."
+            rows="3"
+        ></textarea>
+        
+        <button 
+            type="button" 
+            class="btn btn-primary" 
+            id="processBtn" 
+            onclick="processUrl()"
+        >
+            🚀 NotebookLMで開く
+        </button>
+        
+        <button 
+            type="button" 
+            class="btn btn-secondary" 
+            onclick="pasteFromClipboard()"
+        >
+            📋 クリップボードからペースト
+        </button>
+        
+        <div class="how-it-works">
+            <div class="how-title">⚡ 動作の仕組み</div>
             
-            <button class="btn btn-primary" onclick="instantProcess()">
-                ⚡ 瞬間実行（推奨）
-            </button>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div>YouTube URLを自動でクリップボードにコピー</div>
+            </div>
             
-            <button class="btn btn-success" onclick="pasteAndProcess()">
-                📋 ペースト＆実行
-            </button>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div>NotebookLMアプリを起動（失敗時はWeb版）</div>
+            </div>
             
-            <div class="instructions">
-                <h4>⚡ 瞬間実行の仕組み</h4>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div>URLを自動でクリップボードにコピー</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div>NotebookLM Webページを新しいタブで開く</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div>手動でCtrl+V（Cmd+V）で貼り付け</div>
-                </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div>NotebookLMで貼り付け（Ctrl+V / Cmd+V）</div>
             </div>
         </div>
         
-        <!-- 方法2: 手動確実 -->
-        <div class="method-content" id="method-manual">
-            <input type="url" class="url-input" id="url-manual" placeholder="YouTube URLをペースト">
-            
-            <button class="btn btn-info" onclick="copyOnly()">
-                📋 URLをコピー
-            </button>
-            
-            <button class="btn btn-secondary" onclick="openNotebookLMOnly()">
-                📚 NotebookLMを開く
-            </button>
-            
-            <div class="browser-tabs">
-                💡 <strong>ブラウザタブ活用:</strong><br>
-                2つのタブを開いて、タブ間でコピー&ペーストが最も確実です
-            </div>
-            
-            <div class="instructions">
-                <h4>🔄 手動確実プロセス</h4>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div>「URLをコピー」でクリップボードに保存</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div>「NotebookLMを開く」で新しいタブが開く</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div>NotebookLMのタブでCtrl+V（Cmd+V）</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div>要約開始！</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- 方法3: QR共有 -->
-        <div class="method-content" id="method-qr">
-            <input type="url" class="url-input" id="url-qr" placeholder="YouTube URLをペースト">
-            
-            <button class="btn btn-info" onclick="generateQRCode()">
-                📱 QRコード生成
-            </button>
-            
-            <div class="qr-container" id="qr-container">
-                <div class="qr-code" id="qr-code">QRコード生成中...</div>
-                <div style="text-align: center; font-size: 13px; color: #666;">
-                    スクリーンショットして他の端末で読み取り<br>
-                    または同じ端末で画像保存→QRリーダーで読み取り
-                </div>
-            </div>
-            
-            <div class="instructions">
-                <h4>📱 QR共有の使い方</h4>
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div>QRコードをスクリーンショット</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div>QRリーダーアプリで読み取り</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div>自動でNotebookLMが開く</div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div>YouTube URLが自動入力される</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- フォールバック リンク -->
-        <div class="fallback-links">
-            <a href="simple-approach.html" class="fallback-link">
-                ⚡<br>シンプル
-            </a>
-            <a href="bookmarklet-setup.html" class="fallback-link">
-                🔗<br>ブックマーク
-            </a>
-            <a href="https://notebooklm.google.com/" target="_blank" class="fallback-link">
-                📚<br>直接開く
-            </a>
-        </div>
+        <a href="bookmarklet-setup.html" class="alternative-link">
+            🔗 ブックマークレット版
+        </a>
     </div>
 
     <script>
-        let currentMethod = 'instant';
-        
-        // 方法切り替え
-        function switchMethod(method) {
-            currentMethod = method;
-            
-            // タブ表示切り替え
-            document.querySelectorAll('.method-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.method-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            document.querySelector(`[onclick="switchMethod('${method}')"]`).classList.add('active');
-            document.getElementById(`method-${method}`).classList.add('active');
-        }
+        'use strict';
         
         // YouTube URL検証
         function isYouTubeURL(url) {
@@ -425,10 +283,22 @@
                     'youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be'
                 ];
                 
-                return allowedDomains.some(domain => 
+                const isValidDomain = allowedDomains.some(domain => 
                     hostname === domain || hostname.endsWith('.' + domain)
                 );
-            } catch {
+                
+                if (!isValidDomain) return false;
+                
+                const path = urlObj.pathname;
+                const validPatterns = [
+                    () => path === '/watch' && urlObj.searchParams.has('v'),
+                    () => path.startsWith('/shorts/'),
+                    () => hostname === 'youtu.be' && path.length > 1
+                ];
+                
+                return validPatterns.some(pattern => pattern());
+                
+            } catch (error) {
                 return false;
             }
         }
@@ -440,180 +310,183 @@
             status.className = `status ${type}`;
             status.style.display = 'block';
             
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, 5000);
+            if (type !== 'processing') {
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
         }
         
-        // 方法1: 瞬間実行
-        async function instantProcess() {
-            const url = document.getElementById('url-instant').value.trim();
-            
-            if (!url) {
-                showStatus('YouTube URLを入力してください', 'error');
-                return;
+        // URL正規化
+        function normalizeYouTubeURL(url) {
+            try {
+                const urlObj = new URL(url);
+                
+                if (urlObj.hostname === 'youtu.be') {
+                    const videoId = urlObj.pathname.slice(1).split('?')[0];
+                    return `https://www.youtube.com/watch?v=${videoId}`;
+                }
+                
+                if (urlObj.hostname === 'm.youtube.com') {
+                    urlObj.hostname = 'www.youtube.com';
+                }
+                
+                return urlObj.toString();
+            } catch (error) {
+                return url;
             }
-            
-            if (!isYouTubeURL(url)) {
-                showStatus('有効なYouTube URLを入力してください', 'error');
-                return;
-            }
+        }
+        
+        // NotebookLM起動（正確なパッケージ名使用）
+        async function openNotebookLM(url) {
+            showStatus('NotebookLMを起動中...', 'processing');
             
             try {
                 // Step 1: URLをクリップボードにコピー
                 await navigator.clipboard.writeText(url);
-                showStatus('✅ URLをクリップボードにコピーしました', 'success');
+                console.log('URL copied to clipboard');
                 
-                // Step 2: NotebookLMを開く（アプリ対応）
+                // Step 2: NotebookLMアプリを正確なパッケージ名で起動
+                const packageName = 'com.google.android.apps.labs.language.tailwind';
+                const appIntent = `intent://notebook/#Intent;scheme=https;package=${packageName};end`;
+                
+                // アプリ起動を試行
+                window.location.href = appIntent;
+                
+                // 起動成功時の処理
+                let appLaunched = false;
+                
+                // ページが非表示になった場合（アプリ起動成功）
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden && !appLaunched) {
+                        appLaunched = true;
+                        showStatus('✅ NotebookLMアプリを起動しました！URLを貼り付けてください', 'success');
+                    }
+                }, { once: true });
+                
+                // 3秒後にフォールバック（アプリ起動失敗時）
                 setTimeout(() => {
-                    try {
-                        // 新タブで開く（通常ブラウザ）
-                        window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
-                    } catch (error) {
-                        // アプリ内ブラウザの場合は同じタブ
+                    if (!appLaunched && !document.hidden) {
+                        showStatus('アプリが見つからないため、Web版を開きます...', 'processing');
+                        
+                        setTimeout(() => {
+                            try {
+                                window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                                showStatus('✅ NotebookLM Web版を開きました！URLを貼り付けてください', 'success');
+                            } catch (error) {
+                                // アプリ内ブラウザ対応
+                                if (confirm('NotebookLM Web版を開きますか？（現在のページから移動します）')) {
+                                    window.location.href = 'https://notebooklm.google.com/';
+                                }
+                            }
+                        }, 1000);
+                    }
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error opening NotebookLM:', error);
+                // エラー時の最終フォールバック
+                try {
+                    window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                    showStatus('✅ NotebookLM Web版を開きました', 'success');
+                } catch (fallbackError) {
+                    if (confirm('NotebookLM Web版を開きますか？（現在のページから移動します）')) {
                         window.location.href = 'https://notebooklm.google.com/';
                     }
-                    showStatus('📚 NotebookLMを開きました。Ctrl+V（Cmd+V）で貼り付けてください', 'info');
-                }, 1000);
-                
-            } catch (error) {
-                showStatus('クリップボードにアクセスできません。手動でコピーしてください', 'error');
-                // フォールバック: 手動コピー
-                prompt('以下のURLをコピーしてください:', url);
-                window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                }
             }
         }
         
-        // クリップボードからペースト＆実行
-        async function pasteAndProcess() {
+        // メイン処理
+        async function processUrl() {
+            const input = document.getElementById('urlInput');
+            const url = input.value.trim();
+            
+            if (!url) {
+                showStatus('YouTube URLを入力してください', 'error');
+                input.focus();
+                return;
+            }
+            
+            if (!isYouTubeURL(url)) {
+                showStatus('有効なYouTube URLを入力してください', 'error');
+                input.classList.add('error');
+                setTimeout(() => input.classList.remove('error'), 3000);
+                return;
+            }
+            
+            // 成功表示
+            input.classList.add('success');
+            const normalizedUrl = normalizeYouTubeURL(url);
+            
+            // NotebookLM起動
+            await openNotebookLM(normalizedUrl);
+            
+            // クリーンアップ
+            setTimeout(() => {
+                input.value = '';
+                input.classList.remove('success', 'error');
+            }, 3000);
+        }
+        
+        // クリップボードペースト
+        async function pasteFromClipboard() {
             try {
                 const text = await navigator.clipboard.readText();
-                if (text && isYouTubeURL(text)) {
-                    document.getElementById('url-instant').value = text;
-                    await instantProcess();
+                
+                if (!text) {
+                    showStatus('クリップボードが空です', 'error');
+                    return;
+                }
+                
+                document.getElementById('urlInput').value = text;
+                
+                if (isYouTubeURL(text)) {
+                    showStatus('✅ YouTube URLをペーストしました', 'success');
+                    setTimeout(() => {
+                        if (confirm('すぐにNotebookLMで開きますか？')) {
+                            processUrl();
+                        }
+                    }, 1000);
                 } else {
-                    showStatus('クリップボードにYouTube URLが見つかりません', 'error');
+                    showStatus('⚠️ YouTube URLではありません', 'error');
                 }
+                
             } catch (error) {
-                showStatus('クリップボードにアクセスできません', 'error');
+                showStatus('クリップボードにアクセスできません。手動で貼り付けてください', 'error');
             }
-        }
-        
-        // 方法2: URLのみコピー
-        async function copyOnly() {
-            const url = document.getElementById('url-manual').value.trim();
-            
-            if (!url) {
-                showStatus('YouTube URLを入力してください', 'error');
-                return;
-            }
-            
-            if (!isYouTubeURL(url)) {
-                showStatus('有効なYouTube URLを入力してください', 'error');
-                return;
-            }
-            
-            try {
-                await navigator.clipboard.writeText(url);
-                showStatus('✅ URLをクリップボードにコピーしました', 'success');
-            } catch (error) {
-                prompt('以下のURLをコピーしてください:', url);
-            }
-        }
-        
-        // NotebookLMのみ開く（アプリ対応）
-        function openNotebookLMOnly() {
-            try {
-                // 新タブで開く（通常ブラウザ）
-                window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
-                showStatus('📚 NotebookLMを新しいタブで開きました', 'info');
-            } catch (error) {
-                // アプリ内ブラウザの場合は同じタブ
-                if (confirm('NotebookLMを開きますか？（現在のページから移動します）')) {
-                    window.location.href = 'https://notebooklm.google.com/';
-                }
-            }
-        }
-        
-        // 方法3: QRコード生成
-        function generateQRCode() {
-            const url = document.getElementById('url-qr').value.trim();
-            
-            if (!url) {
-                showStatus('YouTube URLを入力してください', 'error');
-                return;
-            }
-            
-            if (!isYouTubeURL(url)) {
-                showStatus('有効なYouTube URLを入力してください', 'error');
-                return;
-            }
-            
-            // NotebookLM + YouTube URLのセット
-            const notebookLMUrl = `https://notebooklm.google.com/?ref=yt&url=${encodeURIComponent(url)}`;
-            
-            // Google Charts APIでQRコード生成
-            const qrImageUrl = `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(notebookLMUrl)}`;
-            
-            document.getElementById('qr-code').innerHTML = `
-                <img src="${qrImageUrl}" alt="QR Code" style="width: 100%; height: 100%; border-radius: 4px;">
-            `;
-            
-            document.getElementById('qr-container').style.display = 'block';
-            showStatus('✅ QRコードを生成しました', 'success');
         }
         
         // 初期化
         document.addEventListener('DOMContentLoaded', () => {
-            // URLパラメータから自動入力
+            // URLパラメータから共有されたURLを取得
             const urlParams = new URLSearchParams(window.location.search);
             const sharedUrl = urlParams.get('url') || urlParams.get('text');
             
             if (sharedUrl && isYouTubeURL(sharedUrl)) {
-                document.getElementById('url-instant').value = sharedUrl;
-                document.getElementById('url-manual').value = sharedUrl;
-                document.getElementById('url-qr').value = sharedUrl;
-                
+                document.getElementById('urlInput').value = sharedUrl;
                 showStatus('共有されたYouTube URLを検出しました', 'success');
                 
-                // 自動実行確認
+                // 2秒後に自動実行
                 setTimeout(() => {
-                    if (confirm('検出されたYouTube URLを自動処理しますか？')) {
-                        instantProcess();
+                    if (confirm('検出されたYouTube URLを処理しますか？')) {
+                        processUrl();
                     }
-                }, 1000);
+                }, 2000);
             }
             
-            // クリップボードから自動ペーストを試行
-            setTimeout(async () => {
-                try {
-                    const text = await navigator.clipboard.readText();
-                    if (text && isYouTubeURL(text) && !document.getElementById('url-instant').value) {
-                        document.getElementById('url-instant').value = text;
-                        document.getElementById('url-manual').value = text;
-                        document.getElementById('url-qr').value = text;
-                        showStatus('クリップボードからYouTube URLを取得しました', 'info');
-                    }
-                } catch (error) {
-                    // クリップボードアクセス失敗は正常（権限なし）
-                }
-            }, 500);
-            
             // Enterキー対応
-            document.querySelectorAll('.url-input').forEach(input => {
-                input.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        if (currentMethod === 'instant') {
-                            instantProcess();
-                        } else if (currentMethod === 'manual') {
-                            copyOnly();
-                        } else if (currentMethod === 'qr') {
-                            generateQRCode();
-                        }
-                    }
-                });
+            document.getElementById('urlInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    processUrl();
+                }
             });
+            
+            // 自動フォーカス
+            setTimeout(() => {
+                document.getElementById('urlInput').focus();
+            }, 500);
         });
     </script>
 </body>
