@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TaskerData sr="" dvi="1" tv="6.3.3">
+    <!-- YouTube → NotebookLM 自動化プロファイル -->
+    
+    <!-- プロファイル1: クリップボード監視 -->
+    <Profile sr="prof1" ve="2">
+        <cdate>1234567890</cdate>
+        <edate>1234567890</edate>
+        <flags>8</flags>
+        <mid0>2</mid0>
+        <nme>YouTube URL Detection</nme>
+        <Event sr="con0" ve="2">
+            <code>23</code>
+            <pri>0</pri>
+            <Str sr="arg0" ve="3">*youtube*</Str>
+        </Event>
+    </Profile>
+    
+    <!-- タスク1: URL検証と通知表示 -->
+    <Task sr="task1">
+        <cdate>1234567890</cdate>
+        <edate>1234567890</edate>
+        <nme>YouTube URL Validator</nme>
+        <pri>100</pri>
+        
+        <!-- Step 1: クリップボード内容を取得 -->
+        <Action sr="act0" ve="7">
+            <code>590</code>
+            <label>Get Clipboard</label>
+            <Str sr="arg0" ve="3">%clipboard_content</Str>
+        </Action>
+        
+        <!-- Step 2: YouTube URL検証 -->
+        <Action sr="act1" ve="7">
+            <code>37</code>
+            <label>Validate YouTube URL</label>
+            <Str sr="arg0" ve="3">%clipboard_content</Str>
+            <Str sr="arg1" ve="3">~R^https://(www\.|m\.)?youtube\.com/(watch\?v=|shorts/)[a-zA-Z0-9_-]+(\&amp;.*)?$|^https://youtu\.be/[a-zA-Z0-9_-]+(\?.*)?$</Str>
+            <Str sr="arg2" ve="3">%is_youtube_url</Str>
+        </Action>
+        
+        <!-- Step 3: 機密情報検証 -->
+        <Action sr="act2" ve="7">
+            <code>37</code>
+            <label>Check Sensitive Data</label>
+            <Str sr="arg0" ve="3">%clipboard_content</Str>
+            <Str sr="arg1" ve="3">~R.*(password|token|key|auth|email|phone|address).*</Str>
+            <Str sr="arg2" ve="3">%has_sensitive</Str>
+        </Action>
+        
+        <!-- Step 4: 条件分岐 -->
+        <Action sr="act3" ve="7">
+            <code>43</code>
+            <label>Check Conditions</label>
+            <ConditionList sr="if">
+                <Condition sr="c0" ve="3">
+                    <lhs>%is_youtube_url</lhs>
+                    <op>2</op>
+                    <rhs>1</rhs>
+                </Condition>
+                <Condition sr="c1" ve="3">
+                    <lhs>%has_sensitive</lhs>
+                    <op>1</op>
+                    <rhs>1</rhs>
+                </Condition>
+            </ConditionList>
+        </Action>
+        
+        <!-- Step 5: 通知表示 -->
+        <Action sr="act4" ve="7">
+            <code>523</code>
+            <label>Show Notification</label>
+            <Str sr="arg0" ve="3">YouTube URL検出</Str>
+            <Str sr="arg1" ve="3">NotebookLMで開く？</Str>
+            <Str sr="arg2" ve="3">🔗</Str>
+            <Int sr="arg3" val="0"/>
+            <Int sr="arg4" val="0"/>
+            <Str sr="arg5" ve="3"/>
+            <Str sr="arg6" ve="3">開く,無視</Str>
+            <Str sr="arg7" ve="3">youtube_notification</Str>
+            <Int sr="arg8" val="8"/>
+        </Action>
+        
+        <!-- Step 6: 変数クリア（セキュリティ） -->
+        <Action sr="act5" ve="7">
+            <code>547</code>
+            <label>Clear Variables</label>
+            <Str sr="arg0" ve="3">%clipboard_content</Str>
+            <Str sr="arg1" ve="3"/>
+        </Action>
+        
+        <Action sr="act6" ve="7">
+            <code>43</code>
+            <label>End If</label>
+        </Action>
+    </Task>
+    
+    <!-- タスク2: 通知アクション処理 -->
+    <Task sr="task2">
+        <cdate>1234567890</cdate>
+        <edate>1234567890</edate>
+        <nme>Notification Actions</nme>
+        <pri>100</pri>
+        
+        <!-- Step 1: アクション判定 -->
+        <Action sr="act0" ve="7">
+            <code>43</code>
+            <label>Check Action</label>
+            <ConditionList sr="if">
+                <Condition sr="c0" ve="3">
+                    <lhs>%nr_action</lhs>
+                    <op>2</op>
+                    <rhs>開く</rhs>
+                </Condition>
+            </ConditionList>
+        </Action>
+        
+        <!-- Step 2: NotebookLM起動 -->
+        <Action sr="act1" ve="7">
+            <code>104</code>
+            <label>Launch NotebookLM</label>
+            <Str sr="arg0" ve="3">com.google.android.apps.notebook</Str>
+            <Str sr="arg1" ve="3"/>
+            <Str sr="arg2" ve="3"/>
+            <Str sr="arg3" ve="3"/>
+            <Str sr="arg4" ve="3"/>
+            <Int sr="arg5" val="0"/>
+        </Action>
+        
+        <!-- Step 3: URL受け渡し -->
+        <Action sr="act2" ve="7">
+            <code>20</code>
+            <label>Wait</label>
+            <Str sr="arg0" ve="3">2</Str>
+        </Action>
+        
+        <Action sr="act3" ve="7">
+            <code>590</code>
+            <label>Get Clipboard for URL</label>
+            <Str sr="arg0" ve="3">%youtube_url</Str>
+        </Action>
+        
+        <!-- Step 4: セキュリティクリーンアップ -->
+        <Action sr="act4" ve="7">
+            <code>547</code>
+            <label>Security Cleanup</label>
+            <Str sr="arg0" ve="3">%youtube_url</Str>
+            <Str sr="arg1" ve="3"/>
+        </Action>
+    </Task>
+    
+    <!-- プロファイル2: 通知アクション -->
+    <Profile sr="prof2" ve="2">
+        <cdate>1234567890</cdate>
+        <edate>1234567890</edate>
+        <flags>8</flags>
+        <mid0>4</mid0>
+        <nme>Notification Response</nme>
+        <Event sr="con0" ve="2">
+            <code>26</code>
+            <pri>0</pri>
+            <Str sr="arg0" ve="3">youtube_notification</Str>
+        </Event>
+    </Profile>
+    
+</TaskerData>

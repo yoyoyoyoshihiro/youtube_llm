@@ -1,0 +1,102 @@
+{
+  "name": "YouTube→NotebookLM - 安全な動画要約ツール",
+  "short_name": "YT→NLM",
+  "description": "YouTube動画を安全にNotebookLMで要約。プライバシー保護、セキュア処理、コンプライアンス準拠。",
+  "start_url": "/production-pwa.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#ff0000",
+  "background_color": "#ffffff",
+  "lang": "ja",
+  "scope": "/",
+  "categories": ["productivity", "utilities", "education"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='96' cy='96' r='90' fill='url(%23grad)' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='96' y='115' text-anchor='middle' fill='white' font-size='45' font-family='system-ui'%3E🔗📚%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea'/%3E%3Cstop offset='100%25' style='stop-color:%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='256' cy='256' r='240' fill='url(%23grad)' stroke='%23fff' stroke-width='8'/%3E%3Ctext x='256' y='290' text-anchor='middle' fill='white' font-size='120' font-family='system-ui'%3E🔗📚%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 375 812'%3E%3Crect width='375' height='812' fill='%23f8f9fa'/%3E%3Ctext x='187.5' y='406' text-anchor='middle' fill='%23333' font-size='24'%3EYouTube→NotebookLM%3C/text%3E%3C/svg%3E",
+      "sizes": "375x812",
+      "type": "image/svg+xml",
+      "form_factor": "narrow",
+      "label": "YouTube→NotebookLM メイン画面"
+    }
+  ],
+  "share_target": {
+    "action": "/production-pwa.html",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {
+      "title": "title",
+      "text": "text", 
+      "url": "url"
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+youtube",
+      "url": "/production-pwa.html?url=%s"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "YouTube URLを処理",
+      "short_name": "URL処理",
+      "description": "クリップボードのYouTube URLを直接処理",
+      "url": "/production-pwa.html?action=paste",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%2328a745'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='20'%3E📋%3C/text%3E%3C/svg%3E",
+          "sizes": "100x100",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.notebook",
+      "id": "com.google.android.apps.notebook"
+    }
+  ],
+  "prefer_related_applications": false,
+  "file_handlers": [
+    {
+      "action": "/production-pwa.html",
+      "accept": {
+        "text/plain": [".txt", ".url"]
+      }
+    }
+  ],
+  "handle_links": "preferred",
+  "scope_extensions": [
+    {
+      "origin": "https://youtube.com"
+    },
+    {
+      "origin": "https://www.youtube.com"
+    },
+    {
+      "origin": "https://youtu.be"
+    }
+  ]
+}
