@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube→NotebookLM</title>
+    <script>
+        // URLパラメータを取得してproduction-pwa.htmlに渡す
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetUrl = urlParams.toString() ? 
+            `production-pwa.html?${urlParams.toString()}` : 
+            'production-pwa.html';
+        window.location.href = targetUrl;
+    </script>
     <meta http-equiv="refresh" content="0; url=production-pwa.html">
 </head>
 <body>
