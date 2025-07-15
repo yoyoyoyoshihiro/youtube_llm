@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">YT2NLM</string>
+    <string name="app_full_name">YouTube→NotebookLM</string>
+    <string name="share_activity_label">NotebookLMで開く</string>
+    <string name="settings_activity_label">設定</string>
+    
+    <!-- メイン画面 -->
+    <string name="main_title">YouTube→NotebookLM</string>
+    <string name="main_subtitle">YouTube動画を簡単にNotebookLMで要約</string>
+    <string name="url_input_hint">YouTube URLを入力</string>
+    <string name="process_button">🚀 NotebookLMで開く</string>
+    <string name="paste_button">📋 ペースト</string>
+    <string name="history_title">📋 処理履歴</string>
+    <string name="settings_menu">設定</string>
+    
+    <!-- Share処理画面 -->
+    <string name="share_processing">NotebookLMを起動中...</string>
+    <string name="share_success">✅ NotebookLMを起動しました！</string>
+    <string name="share_fallback">📱 アプリが見つからないため、Web版を開きます</string>
+    <string name="share_error">❌ エラーが発生しました</string>
+    <string name="share_invalid_url">⚠️ 有効なYouTube URLではありません</string>
+    <string name="cancel_button">キャンセル</string>
+    <string name="retry_button">再試行</string>
+    
+    <!-- 設定画面 -->
+    <string name="settings_launch_method">起動方法</string>
+    <string name="settings_launch_app_first">アプリ優先</string>
+    <string name="settings_launch_web_only">Web版のみ</string>
+    <string name="settings_launch_ask_user">毎回確認</string>
+    <string name="settings_copy_to_clipboard">クリップボードにコピー</string>
+    <string name="settings_copy_enabled">有効</string>
+    <string name="settings_copy_disabled">無効</string>
+    <string name="settings_show_history">履歴を表示</string>
+    <string name="settings_clear_history">履歴をクリア</string>
+    <string name="settings_about">アプリについて</string>
+    
+    <!-- 履歴 -->
+    <string name="history_empty">履歴はありません</string>
+    <string name="history_delete">削除</string>
+    <string name="history_reopen">再度開く</string>
+    <string name="history_clear_confirm">履歴をすべて削除しますか？</string>
+    <string name="history_clear_yes">削除</string>
+    <string name="history_clear_no">キャンセル</string>
+    
+    <!-- エラーメッセージ -->
+    <string name="error_invalid_url">有効なYouTube URLを入力してください</string>
+    <string name="error_no_url">URLを入力してください</string>
+    <string name="error_clipboard_empty">クリップボードが空です</string>
+    <string name="error_clipboard_no_permission">クリップボードへのアクセス権限がありません</string>
+    <string name="error_notebooklm_not_found">NotebookLMアプリが見つかりません</string>
+    <string name="error_network">ネットワークエラーが発生しました</string>
+    
+    <!-- 通知 -->
+    <string name="notification_processing">YouTube URLを処理中...</string>
+    <string name="notification_success">NotebookLMを起動しました</string>
+    <string name="notification_channel_name">YT2NLM処理通知</string>
+    <string name="notification_channel_description">YouTube→NotebookLM処理状況の通知</string>
+    
+    <!-- About -->
+    <string name="about_version">バージョン %s</string>
+    <string name="about_description">YouTubeの動画URLを簡単にNotebookLMで開くためのアプリです。</string>
+    <string name="about_github">GitHub</string>
+    <string name="about_license">ライセンス</string>
+    
+    <!-- 一般的な操作 -->
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="retry">再試行</string>
+    <string name="close">閉じる</string>
+</resources>
