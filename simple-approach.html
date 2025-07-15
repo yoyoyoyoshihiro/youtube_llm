@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube→NotebookLM 簡単版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .logo {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .step-content {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 45px);
+        }
+        
+        .step-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .step-description {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .url-display {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            color: #1976d2;
+        }
+        
+        .copy-button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .copy-button:hover {
+            background: #1976d2;
+        }
+        
+        .qr-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 12px;
+        }
+        
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 15px;
+            background: white;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .bookmark-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .bookmark-title {
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .bookmark-link {
+            display: inline-block;
+            background: #f39c12;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 5px;
+        }
+        
+        .tips {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            font-size: 14px;
+        }
+        
+        .tips-title {
+            font-weight: bold;
+            color: #155724;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔗📚</div>
+        <h1 class="title">YouTube→NotebookLM<br>簡単版</h1>
+        
+        <!-- 基本的な使い方 -->
+        <div class="step">
+            <span class="step-number">1</span>
+            <div class="step-content">
+                <div class="step-title">YouTubeでURLをコピー</div>
+                <div class="step-description">共有→「リンクをコピー」</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <div class="step-content">
+                <div class="step-title">NotebookLMを開く</div>
+                <div class="step-description">下のリンクをタップ</div>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <div class="step-content">
+                <div class="step-title">URLを貼り付け</div>
+                <div class="step-description">NotebookLMでURL貼り付け→要約開始</div>
+            </div>
+        </div>
+        
+        <!-- NotebookLM直接リンク -->
+        <div style="margin: 30px 0;">
+            <a href="https://notebooklm.google.com/" target="_blank" style="
+                display: inline-block;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                padding: 15px 30px;
+                border-radius: 12px;
+                text-decoration: none;
+                font-size: 16px;
+                font-weight: bold;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            ">📚 NotebookLMを開く</a>
+        </div>
+        
+        <!-- ブックマーク推奨 -->
+        <div class="bookmark-section">
+            <div class="bookmark-title">💡 さらに便利に使うには</div>
+            <div style="font-size: 14px; color: #856404;">
+                このページをブックマークして、ホーム画面に追加すると
+                いつでも簡単にNotebookLMにアクセスできます
+            </div>
+        </div>
+        
+        <!-- 高度な方法 -->
+        <div class="tips">
+            <div class="tips-title">🚀 高度な使い方</div>
+            <div>
+                <strong>ブックマークレット:</strong><br>
+                以下のコードをブラウザのブックマークに保存すると、
+                YouTubeページで直接NotebookLMを開けます
+            </div>
+            <div class="url-display" style="margin-top: 10px;">
+javascript:(function(){const url=window.location.href;if(url.includes('youtube.com')||url.includes('youtu.be')){window.open('https://notebooklm.google.com/','_blank');navigator.clipboard.writeText(url).then(()=>alert('URLをコピーしました！NotebookLMに貼り付けてください'));}else{alert('YouTubeページで実行してください');}})();
+            </div>
+            <button class="copy-button" onclick="copyBookmarklet()">ブックマークレットをコピー</button>
+        </div>
+        
+        <!-- QRコード生成 -->
+        <div class="qr-container">
+            <div class="qr-code" id="qr-code">
+                QRコードを生成<br>
+                (URL入力後)
+            </div>
+            <input type="url" id="youtube-url" placeholder="YouTube URLを入力" style="
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                margin-bottom: 10px;
+            ">
+            <button onclick="generateQR()" style="
+                background: #4caf50;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+            ">QRコード生成</button>
+        </div>
+    </div>
+
+    <script>
+        function copyBookmarklet() {
+            const bookmarklet = `javascript:(function(){const url=window.location.href;if(url.includes('youtube.com')||url.includes('youtu.be')){window.open('https://notebooklm.google.com/','_blank');navigator.clipboard.writeText(url).then(()=>alert('URLをコピーしました！NotebookLMに貼り付けてください'));}else{alert('YouTubeページで実行してください');}})();`;
+            
+            navigator.clipboard.writeText(bookmarklet).then(() => {
+                alert('ブックマークレットをコピーしました！\n\n使い方:\n1. ブラウザのブックマークを開く\n2. 新しいブックマークを作成\n3. コピーしたコードを貼り付け\n4. YouTubeページで実行');
+            }).catch(() => {
+                prompt('以下をコピーしてブックマークに保存してください:', bookmarklet);
+            });
+        }
+        
+        function generateQR() {
+            const url = document.getElementById('youtube-url').value;
+            if (!url) {
+                alert('YouTube URLを入力してください');
+                return;
+            }
+            
+            if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+                alert('YouTube URLを入力してください');
+                return;
+            }
+            
+            // QR.js などのライブラリを使わず、Google Charts APIを使用
+            const qrUrl = `https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=${encodeURIComponent(url)}`;
+            
+            document.getElementById('qr-code').innerHTML = `
+                <img src="${qrUrl}" alt="QR Code" style="width: 100%; height: 100%;">
+            `;
+        }
+        
+        // URLパラメータがある場合は自動入力
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedUrl = urlParams.get('url') || urlParams.get('text');
+            
+            if (sharedUrl && (sharedUrl.includes('youtube.com') || sharedUrl.includes('youtu.be'))) {
+                document.getElementById('youtube-url').value = sharedUrl;
+                generateQR();
+                
+                // 2秒後にNotebookLMを自動で開く
+                setTimeout(() => {
+                    if (confirm('NotebookLMを開きますか？\n\nURLは既にコピー済みです。貼り付けてください。')) {
+                        navigator.clipboard.writeText(sharedUrl);
+                        window.open('https://notebooklm.google.com/', '_blank');
+                    }
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

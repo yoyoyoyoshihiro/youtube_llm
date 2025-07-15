@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube→NotebookLM ブックマークレット</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        
+        .title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .setup-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #2196f3;
+            background: white;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .bookmarklet-code {
+            background: #f1f3f4;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            margin: 15px 0;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .copy-button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        
+        .copy-button:hover {
+            background: #1976d2;
+        }
+        
+        .demo-section {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        
+        .usage-demo {
+            margin: 30px 0;
+        }
+        
+        .demo-video-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            background: white;
+        }
+        
+        .demo-button {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🔗📚</div>
+        <h1 class="title">YouTube→NotebookLM<br>ブックマークレット</h1>
+        <p class="subtitle">YouTubeページで直接実行できる最も確実な方法</p>
+    </div>
+    
+    <div class="setup-section">
+        <h2>📋 セットアップ手順（1回のみ）</h2>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>ブックマークレットをコピー</strong>
+            <div class="bookmarklet-code" id="bookmarklet-code">
+javascript:(function(){if(window.location.href.includes('youtube.com')||window.location.href.includes('youtu.be')){const url=window.location.href;navigator.clipboard.writeText(url).then(()=>{window.open('https://notebooklm.google.com/','_blank');setTimeout(()=>alert('✅ YouTube URLをコピーしました！\n\nNotebookLMでCtrl+V（またはCmd+V）で貼り付けて要約を開始してください。'),1000);}).catch(()=>{window.open('https://notebooklm.google.com/','_blank');alert('NotebookLMを開きました。\n手動でYouTube URLをコピーして貼り付けてください。');});}else{alert('⚠️ YouTubeページで実行してください');}})();
+            </div>
+            <button class="copy-button" onclick="copyBookmarklet()">📋 コピー</button>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>ブラウザのブックマークに追加</strong>
+            <div style="margin-top: 10px;">
+                <strong>Android Chrome:</strong>
+                <ol style="margin: 10px 0 10px 20px;">
+                    <li>Chrome設定 → ブックマーク</li>
+                    <li>「新しいフォルダ」または既存フォルダを選択</li>
+                    <li>「新しいブックマーク」をタップ</li>
+                    <li>名前: <code>YouTube→NotebookLM</code></li>
+                    <li>URL: コピーしたコードを貼り付け</li>
+                    <li>「保存」をタップ</li>
+                </ol>
+                
+                <strong>iPhone Safari:</strong>
+                <ol style="margin: 10px 0 10px 20px;">
+                    <li>Safari → ブックマーク → 編集</li>
+                    <li>「新規フォルダ」または既存フォルダを選択</li>
+                    <li>「新規ブックマーク」</li>
+                    <li>タイトル: <code>YouTube→NotebookLM</code></li>
+                    <li>URL: コピーしたコードを貼り付け</li>
+                    <li>「完了」をタップ</li>
+                </ol>
+            </div>
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>完了！</strong>
+            <div style="margin-top: 10px;">
+                これで準備完了です。YouTubeページでブックマークから
+                「YouTube→NotebookLM」を実行するだけ！
+            </div>
+        </div>
+    </div>
+    
+    <div class="usage-demo">
+        <h2>🚀 使い方</h2>
+        
+        <div class="demo-video-card">
+            <h3>📺 YouTube動画例</h3>
+            <p><strong>タイトル:</strong> プログラミング入門講座</p>
+            <p><strong>URL:</strong> https://youtube.com/watch?v=example123</p>
+            <button class="demo-button" onclick="demoBookmarklet()">
+                🔗 ブックマークレット実行（デモ）
+            </button>
+        </div>
+        
+        <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin: 15px 0;">
+            <strong>📱 実際の手順:</strong>
+            <ol style="margin: 10px 0 0 20px;">
+                <li>YouTubeで動画を視聴</li>
+                <li>ブラウザのブックマークを開く</li>
+                <li>「YouTube→NotebookLM」をタップ</li>
+                <li>自動でNotebookLMが開く + URL自動コピー</li>
+                <li>NotebookLMでCtrl+V（Cmd+V）で貼り付け</li>
+                <li>要約開始！</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="warning">
+        <strong>⚠️ 注意事項</strong>
+        <ul style="margin: 10px 0 0 20px;">
+            <li>必ずYouTubeページで実行してください</li>
+            <li>ポップアップブロックが有効な場合は許可してください</li>
+            <li>クリップボード権限が必要です</li>
+        </ul>
+    </div>
+    
+    <div class="demo-section">
+        <h3>✅ この方法のメリット</h3>
+        <ul style="margin: 10px 0 0 20px;">
+            <li><strong>確実性:</strong> 複雑なPWA機能に依存しない</li>
+            <li><strong>互換性:</strong> 全ブラウザ・全端末で動作</li>
+            <li><strong>高速:</strong> 瞬時にNotebookLMが開く</li>
+            <li><strong>簡単:</strong> 1回設定すれば永続利用</li>
+            <li><strong>安全:</strong> 外部サーバー不要</li>
+        </ul>
+    </div>
+
+    <script>
+        function copyBookmarklet() {
+            const bookmarklet = document.getElementById('bookmarklet-code').textContent;
+            
+            navigator.clipboard.writeText(bookmarklet).then(() => {
+                alert('✅ ブックマークレットをコピーしました！\n\n次の手順:\n1. ブラウザのブックマーク設定を開く\n2. 新しいブックマークを作成\n3. コピーしたコードを貼り付け\n4. 保存して完了');
+            }).catch(() => {
+                // フォールバック: テキスト選択
+                const codeElement = document.getElementById('bookmarklet-code');
+                const range = document.createRange();
+                range.selectNode(codeElement);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                
+                alert('コードを選択しました。\nCtrl+C（またはCmd+C）でコピーしてください。');
+            });
+        }
+        
+        function demoBookmarklet() {
+            // デモ用の簡略版
+            alert('📋 YouTube URLをコピー中...');
+            
+            setTimeout(() => {
+                alert('✅ URLをコピーしました！\n\n🚀 NotebookLMを開きます...');
+                
+                setTimeout(() => {
+                    window.open('https://notebooklm.google.com/', '_blank');
+                    alert('✅ NotebookLMが開きました！\n\n実際の使用時は、自動でURLがクリップボードにコピーされるので、\nNotebookLMでCtrl+V（Cmd+V）で貼り付けて要約を開始してください。');
+                }, 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
