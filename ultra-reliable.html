@@ -464,9 +464,15 @@
                 await navigator.clipboard.writeText(url);
                 showStatus('✅ URLをクリップボードにコピーしました', 'success');
                 
-                // Step 2: NotebookLMを新しいタブで開く
+                // Step 2: NotebookLMを開く（アプリ対応）
                 setTimeout(() => {
-                    window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                    try {
+                        // 新タブで開く（通常ブラウザ）
+                        window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                    } catch (error) {
+                        // アプリ内ブラウザの場合は同じタブ
+                        window.location.href = 'https://notebooklm.google.com/';
+                    }
                     showStatus('📚 NotebookLMを開きました。Ctrl+V（Cmd+V）で貼り付けてください', 'info');
                 }, 1000);
                 
@@ -515,10 +521,18 @@
             }
         }
         
-        // NotebookLMのみ開く
+        // NotebookLMのみ開く（アプリ対応）
         function openNotebookLMOnly() {
-            window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
-            showStatus('📚 NotebookLMを新しいタブで開きました', 'info');
+            try {
+                // 新タブで開く（通常ブラウザ）
+                window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                showStatus('📚 NotebookLMを新しいタブで開きました', 'info');
+            } catch (error) {
+                // アプリ内ブラウザの場合は同じタブ
+                if (confirm('NotebookLMを開きますか？（現在のページから移動します）')) {
+                    window.location.href = 'https://notebooklm.google.com/';
+                }
+            }
         }
         
         // 方法3: QRコード生成
