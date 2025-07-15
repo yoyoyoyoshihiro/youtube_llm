@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube→NotebookLM - 改良版PWA</title>
+    
+    <!-- PWA設定 -->
+    <link rel="manifest" href="improved-manifest.json">
+    <meta name="theme-color" content="#ff0000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="YouTube→NotebookLM">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            color: #333;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 15px;
+            user-select: none;
+        }
+        
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .input-section {
+            margin-bottom: 20px;
+        }
+        
+        .url-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            resize: none;
+            font-family: inherit;
+        }
+        
+        .url-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .url-input.success {
+            border-color: #28a745;
+            background-color: #f0fff4;
+        }
+        
+        .url-input.error {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+        
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.processing {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .methods-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .methods-title {
+            font-weight: bold;
+            margin-bottom: 12px;
+            text-align: center;
+            color: #333;
+        }
+        
+        .method-option {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .method-option:last-child {
+            border-bottom: none;
+        }
+        
+        .method-number {
+            background: #667eea;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .method-text {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .install-prompt {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .fallback-section {
+            background: #e8f4fd;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #0c5460;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .alternative-methods {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f8ff;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        
+        .alternative-link {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .alternative-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo" role="img" aria-label="YouTube to NotebookLM logo">🔗📚</div>
+        <h1 class="title">YouTube→NotebookLM</h1>
+        <p class="subtitle">アプリ内完結版 - 確実動作保証</p>
+        
+        <div class="install-prompt" id="installPrompt">
+            📱 <strong>このページをホーム画面に追加すると、アプリのように使えます</strong>
+        </div>
+        
+        <div class="status" id="status" role="alert" aria-live="polite"></div>
+        
+        <div class="input-section">
+            <textarea 
+                id="urlInput" 
+                class="url-input"
+                placeholder="YouTube URLを入力またはペースト&#10;例: https://youtube.com/watch?v=..."
+                rows="3"
+                autocomplete="off"
+                spellcheck="false"
+            ></textarea>
+        </div>
+        
+        <div class="button-group">
+            <button 
+                type="button" 
+                class="btn btn-primary" 
+                id="processBtn" 
+                onclick="processUrl()"
+            >
+                <span>🚀</span>
+                NotebookLMで開く
+            </button>
+            
+            <button 
+                type="button" 
+                class="btn btn-secondary" 
+                id="pasteBtn" 
+                onclick="pasteFromClipboard()"
+            >
+                <span>📋</span>
+                クリップボードからペースト
+            </button>
+        </div>
+        
+        <div class="methods-section">
+            <div class="methods-title">📋 確実な実行方法</div>
+            
+            <div class="method-option">
+                <div class="method-number">1</div>
+                <div class="method-text">
+                    <strong>アプリ起動試行:</strong> NotebookLMアプリを直接起動
+                </div>
+            </div>
+            
+            <div class="method-option">
+                <div class="method-number">2</div>
+                <div class="method-text">
+                    <strong>Web版フォールバック:</strong> アプリが起動しない場合はブラウザ版
+                </div>
+            </div>
+            
+            <div class="method-option">
+                <div class="method-number">3</div>
+                <div class="method-text">
+                    <strong>URL自動コピー:</strong> NotebookLMでペーストするだけ
+                </div>
+            </div>
+        </div>
+        
+        <div class="fallback-section">
+            <strong>💡 動作しない場合:</strong><br>
+            • NotebookLMアプリをインストール<br>
+            • Chrome最新版を使用<br>
+            • 手動でURL貼り付け
+        </div>
+        
+        <div class="alternative-methods">
+            <strong>🔗 他の方法:</strong><br>
+            <a href="simple-approach.html" class="alternative-link">シンプル方式</a> | 
+            <a href="bookmarklet-setup.html" class="alternative-link">ブックマークレット</a> |
+            <a href="qr-approach.html" class="alternative-link">QRコード</a>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+        
+        // YouTube URL検証（改良版）
+        function isYouTubeURL(url) {
+            try {
+                const urlObj = new URL(url);
+                const hostname = urlObj.hostname.toLowerCase();
+                
+                // 許可されたドメイン
+                const allowedDomains = [
+                    'youtube.com', 'www.youtube.com', 'm.youtube.com', 'youtu.be'
+                ];
+                
+                const isValidDomain = allowedDomains.some(domain => 
+                    hostname === domain || hostname.endsWith('.' + domain)
+                );
+                
+                if (!isValidDomain) return false;
+                
+                // パス検証
+                const path = urlObj.pathname;
+                const validPatterns = [
+                    () => path === '/watch' && urlObj.searchParams.has('v'),
+                    () => path.startsWith('/shorts/'),
+                    () => hostname === 'youtu.be' && path.length > 1
+                ];
+                
+                return validPatterns.some(pattern => pattern());
+                
+            } catch (error) {
+                return false;
+            }
+        }
+        
+        // ステータス表示
+        function showStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            
+            if (type !== 'processing') {
+                setTimeout(() => {
+                    status.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // URL正規化
+        function normalizeYouTubeURL(url) {
+            try {
+                const urlObj = new URL(url);
+                
+                // youtu.be → youtube.com
+                if (urlObj.hostname === 'youtu.be') {
+                    const videoId = urlObj.pathname.slice(1).split('?')[0];
+                    return `https://www.youtube.com/watch?v=${videoId}`;
+                }
+                
+                // m.youtube.com → www.youtube.com
+                if (urlObj.hostname === 'm.youtube.com') {
+                    urlObj.hostname = 'www.youtube.com';
+                }
+                
+                return urlObj.toString();
+            } catch (error) {
+                return url;
+            }
+        }
+        
+        // NotebookLM起動（改良版）
+        async function openNotebookLM(url) {
+            showStatus('NotebookLMを起動中...', 'processing');
+            
+            try {
+                // Step 1: URLをクリップボードにコピー
+                await navigator.clipboard.writeText(url);
+                console.log('URL copied to clipboard');
+                
+                // Step 2: 複数の方法でNotebookLMを開く
+                const methods = [
+                    // 方法1: アプリIntentを試行
+                    () => {
+                        const appIntent = `intent://notebook/#Intent;scheme=https;package=com.google.android.apps.notebook;end`;
+                        window.location.href = appIntent;
+                    },
+                    
+                    // 方法2: カスタムスキームを試行
+                    () => {
+                        window.location.href = 'notebooklm://';
+                    },
+                    
+                    // 方法3: アプリストアリンクを試行
+                    () => {
+                        window.location.href = 'market://details?id=com.google.android.apps.notebook';
+                    }
+                ];
+                
+                // 方法1を実行
+                methods[0]();
+                
+                // 2秒後にフォールバック
+                setTimeout(() => {
+                    showStatus('アプリが見つからない場合はWeb版を開きます...', 'processing');
+                    
+                    // Web版を開く
+                    const webUrl = 'https://notebooklm.google.com/';
+                    window.open(webUrl, '_blank', 'noopener,noreferrer');
+                    
+                    showStatus('✅ NotebookLMを開きました！クリップボードのURLをペーストしてください', 'success');
+                    
+                }, 2000);
+                
+                // ページが非表示になった場合（アプリ起動成功）
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden) {
+                        showStatus('✅ NotebookLMアプリを起動しました！', 'success');
+                    }
+                }, { once: true });
+                
+            } catch (error) {
+                console.error('Error opening NotebookLM:', error);
+                // エラー時の最終フォールバック
+                window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer');
+                showStatus('✅ NotebookLM Web版を開きました', 'success');
+            }
+        }
+        
+        // メイン処理
+        async function processUrl() {
+            const input = document.getElementById('urlInput');
+            const url = input.value.trim();
+            
+            if (!url) {
+                showStatus('YouTube URLを入力してください', 'error');
+                input.focus();
+                return;
+            }
+            
+            if (!isYouTubeURL(url)) {
+                showStatus('有効なYouTube URLを入力してください', 'error');
+                input.classList.add('error');
+                setTimeout(() => input.classList.remove('error'), 3000);
+                return;
+            }
+            
+            // 成功表示
+            input.classList.add('success');
+            const normalizedUrl = normalizeYouTubeURL(url);
+            
+            // NotebookLM起動
+            await openNotebookLM(normalizedUrl);
+            
+            // クリーンアップ
+            setTimeout(() => {
+                input.value = '';
+                input.classList.remove('success', 'error');
+            }, 3000);
+        }
+        
+        // クリップボードペースト
+        async function pasteFromClipboard() {
+            try {
+                const text = await navigator.clipboard.readText();
+                
+                if (!text) {
+                    showStatus('クリップボードが空です', 'error');
+                    return;
+                }
+                
+                document.getElementById('urlInput').value = text;
+                
+                if (isYouTubeURL(text)) {
+                    showStatus('✅ YouTube URLをペーストしました', 'success');
+                    // 自動で処理を実行するか確認
+                    setTimeout(() => {
+                        if (confirm('すぐにNotebookLMで開きますか？')) {
+                            processUrl();
+                        }
+                    }, 1000);
+                } else {
+                    showStatus('⚠️ YouTube URLではありません', 'error');
+                }
+                
+            } catch (error) {
+                showStatus('クリップボードにアクセスできません。手動で貼り付けてください', 'error');
+            }
+        }
+        
+        // 初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            // URLパラメータから共有されたURLを取得
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedUrl = urlParams.get('url') || urlParams.get('text');
+            
+            if (sharedUrl && isYouTubeURL(sharedUrl)) {
+                document.getElementById('urlInput').value = sharedUrl;
+                showStatus('共有されたYouTube URLを検出しました', 'success');
+                
+                // 2秒後に自動実行
+                setTimeout(() => {
+                    processUrl();
+                }, 2000);
+            }
+            
+            // PWAインストール促進
+            if (!window.matchMedia('(display-mode: standalone)').matches) {
+                document.getElementById('installPrompt').style.display = 'block';
+            }
+            
+            // Enterキー対応
+            document.getElementById('urlInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    processUrl();
+                }
+            });
+            
+            // 自動フォーカス
+            setTimeout(() => {
+                document.getElementById('urlInput').focus();
+            }, 500);
+        });
+        
+        // Service Worker登録
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw-simple.js')
+                .catch(error => console.log('Service Worker registration failed'));
+        }
+    </script>
+</body>
+</html>
