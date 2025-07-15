@@ -2,13 +2,13 @@
   "name": "YouTube→NotebookLM - 安全な動画要約ツール",
   "short_name": "YT→NLM",
   "description": "YouTube動画を安全にNotebookLMで要約。プライバシー保護、セキュア処理、コンプライアンス準拠。",
-  "start_url": "/production-pwa.html",
+  "start_url": "./production-pwa.html",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#ff0000",
   "background_color": "#ffffff",
   "lang": "ja",
-  "scope": "/",
+  "scope": "./",
   "categories": ["productivity", "utilities", "education"],
   "icons": [
     {
@@ -34,7 +34,7 @@
     }
   ],
   "share_target": {
-    "action": "/production-pwa.html",
+    "action": "./production-pwa.html",
     "method": "GET",
     "enctype": "application/x-www-form-urlencoded",
     "params": {
@@ -81,7 +81,7 @@
   "prefer_related_applications": false,
   "file_handlers": [
     {
-      "action": "/production-pwa.html",
+      "action": "./production-pwa.html",
       "accept": {
         "text/plain": [".txt", ".url"]
       }
