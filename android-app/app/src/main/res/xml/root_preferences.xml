@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory android:title="@string/settings_launch_method">
+        
+        <ListPreference
+            android:key="launch_method"
+            android:title="@string/settings_launch_method"
+            android:entries="@array/launch_method_entries"
+            android:entryValues="@array/launch_method_values"
+            android:defaultValue="app_first"
+            android:summary="%s" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="クリップボード">
+        
+        <SwitchPreferenceCompat
+            android:key="copy_to_clipboard"
+            android:title="@string/settings_copy_to_clipboard"
+            android:summary="URL処理時に自動でクリップボードにコピーする"
+            android:defaultValue="true" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="履歴">
+        
+        <SwitchPreferenceCompat
+            android:key="show_history"
+            android:title="@string/settings_show_history"
+            android:summary="メイン画面に履歴を表示する"
+            android:defaultValue="true" />
+            
+        <Preference
+            android:key="clear_history"
+            android:title="@string/settings_clear_history"
+            android:summary="すべての履歴を削除する" />
+            
+        <ListPreference
+            android:key="history_retention"
+            android:title="履歴保持期間"
+            android:entries="@array/history_retention_entries"
+            android:entryValues="@array/history_retention_values"
+            android:defaultValue="30"
+            android:summary="%s" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory android:title="@string/settings_about">
+        
+        <Preference
+            android:key="app_version"
+            android:title="アプリバージョン"
+            android:summary="1.0.0"
+            android:enabled="false" />
+            
+        <Preference
+            android:key="notebooklm_status"
+            android:title="NotebookLMアプリ"
+            android:summary="確認中..." />
+            
+        <Preference
+            android:key="github_link"
+            android:title="@string/about_github"
+            android:summary="https://github.com/yoyoyoyoshihiro/youtube_llm">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/yoyoyoyoshihiro/youtube_llm" />
+        </Preference>
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>
